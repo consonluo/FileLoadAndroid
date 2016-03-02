@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.qwm.fileloadandroid.net.AsyncHttpResponseCallback;
+import com.qwm.fileloadandroid.net.BaseNetEntity;
 import com.qwm.fileloadandroid.net.UpLoadUtils;
 
 import java.io.ByteArrayOutputStream;
@@ -130,6 +132,61 @@ public class MainActivity extends AppCompatActivity {
             });
         }
     }
+
+
+    //================================volley上传========================================
+
+    /**
+     * 上传图片
+     * @param view
+     */
+    public void uploadPic22(View view){
+        if(filePathList.size()<=0){
+            Toast.makeText(this,"请选择文件",Toast.LENGTH_SHORT).show();
+            return;
+        }
+        File file = new File(filePathList.get(0));
+        if(file.exists()){
+           BaseNetEntity.getInstance().sendPostParamsOneFile(this, "上传文件中。。。", true, new AsyncHttpResponseCallback() {
+               @Override
+               public void onSuccess(String resultStr) {
+                   Toast.makeText(MainActivity.this,resultStr,Toast.LENGTH_SHORT).show();
+               }
+           }, null, file, uploadUrl);
+        }else{
+            Toast.makeText(this,"文件不存在："+file.getAbsolutePath(),Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
+    /**
+     * 上传图片
+     * @param view
+     */
+    public void uploadMulFile22(View view){
+        if(filePathList.size()<=0){
+            Toast.makeText(this,"请选择文件",Toast.LENGTH_SHORT).show();
+            return;
+        }
+        List<File> fileList = new ArrayList<File>();
+        for (int i = 0; i <filePathList.size(); i++) {
+            File file = new File(filePathList.get(i));
+            if(file.exists()){
+                fileList.add(file);
+            }else{
+                Toast.makeText(this,"文件不存在:"+file.getAbsolutePath(),Toast.LENGTH_SHORT).show();
+            }
+        }
+        if(fileList.size()>0){
+            BaseNetEntity.getInstance().sendPostParamsFile(this, "上传中...", true, new AsyncHttpResponseCallback() {
+                @Override
+                public void onSuccess(String resultStr) {
+                    Toast.makeText(MainActivity.this,resultStr,Toast.LENGTH_SHORT).show();
+                }
+            }, null, fileList, uploadUrl);
+        }
+    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

@@ -41,4 +41,26 @@
         android:text="上传(多个文件)"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+
+    <TextView
+        android:background="#45444444"
+        android:layout_marginTop="20dp"
+        android:text="========使用Volley==========="
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="30dp" />
+
+    <Button
+        android:layout_marginTop="10dp"
+        android:onClick="uploadPic22"
+        android:text="上传(只上传第一个)"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:layout_marginTop="10dp"
+        android:onClick="uploadMulFile22"
+        android:text="上传(多个文件)"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 </LinearLayout>
